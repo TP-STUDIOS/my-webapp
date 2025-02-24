@@ -13,7 +13,7 @@
     <script>
         window.onload = function() {
             const initData = Telegram.WebApp.initData;
-            console.log("Raw initData from Telegram:", initData); // Логируем исходный initData
+            console.log("Raw initData from Telegram:", initData); // Логируем initData
             if (!initData) {
                 document.getElementById('user-info').innerText = 'Ошибка: initData не получено';
                 return;
