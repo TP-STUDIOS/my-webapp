@@ -13,19 +13,24 @@
     <script>
         window.onload = function() {
             const initData = Telegram.WebApp.initData;
+            console.log("initData:", initData); // Отладка
             if (!initData) {
                 document.getElementById('user-info').innerText = 'Ошибка: initData не получено';
                 return;
             }
 
             // Отправка initData на Flask-сервер
-            fetch('https://f843-199-247-16-88.ngrok-free.app ', {  // Замените на ваш публичный URL
+            fetch('https://f843-199-247-16-88.ngrok-free.app/verify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ initData: initData })
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log("Response status:", response.status); // Отладка
+                return response.json();
+            })
             .then(data => {
+                console.log("Response data:", data); // Отладка
                 if (data.error) {
                     document.getElementById('user-info').innerText = `Ошибка: ${data.error}`;
                 } else {
@@ -34,6 +39,7 @@
                 }
             })
             .catch(error => {
+                console.error("Fetch error:", error); // Отладка
                 document.getElementById('user-info').innerText = `Ошибка подключения: ${error}`;
             });
         };
