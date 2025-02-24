@@ -12,25 +12,25 @@
 
     <script>
         window.onload = function() {
+            console.log("Telegram.WebApp:", Telegram.WebApp); // Отладка объекта
             const initData = Telegram.WebApp.initData;
-            console.log("initData:", initData); // Отладка
+            console.log("initData:", initData); // Отладка данных
             if (!initData) {
                 document.getElementById('user-info').innerText = 'Ошибка: initData не получено';
                 return;
             }
 
-            // Отправка initData на Flask-сервер
             fetch('https://f843-199-247-16-88.ngrok-free.app/verify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ initData: initData })
             })
             .then(response => {
-                console.log("Response status:", response.status); // Отладка
+                console.log("Response status:", response.status); // Отладка статуса
                 return response.json();
             })
             .then(data => {
-                console.log("Response data:", data); // Отладка
+                console.log("Response data:", data); // Отладка ответа
                 if (data.error) {
                     document.getElementById('user-info').innerText = `Ошибка: ${data.error}`;
                 } else {
@@ -39,7 +39,7 @@
                 }
             })
             .catch(error => {
-                console.error("Fetch error:", error); // Отладка
+                console.error("Fetch error:", error); // Отладка ошибки
                 document.getElementById('user-info').innerText = `Ошибка подключения: ${error}`;
             });
         };
