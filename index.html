@@ -12,9 +12,8 @@
 
     <script>
         window.onload = function() {
-            console.log("Telegram.WebApp:", Telegram.WebApp); // Отладка объекта
             const initData = Telegram.WebApp.initData;
-            console.log("initData:", initData); // Отладка данных
+            console.log("Raw initData from Telegram:", initData); // Логируем исходный initData
             if (!initData) {
                 document.getElementById('user-info').innerText = 'Ошибка: initData не получено';
                 return;
@@ -26,11 +25,11 @@
                 body: JSON.stringify({ initData: initData })
             })
             .then(response => {
-                console.log("Response status:", response.status); // Отладка статуса
+                console.log("Response status:", response.status);
                 return response.json();
             })
             .then(data => {
-                console.log("Response data:", data); // Отладка ответа
+                console.log("Response data:", data);
                 if (data.error) {
                     document.getElementById('user-info').innerText = `Ошибка: ${data.error}`;
                 } else {
@@ -39,7 +38,7 @@
                 }
             })
             .catch(error => {
-                console.error("Fetch error:", error); // Отладка ошибки
+                console.error("Fetch error:", error);
                 document.getElementById('user-info').innerText = `Ошибка подключения: ${error}`;
             });
         };
